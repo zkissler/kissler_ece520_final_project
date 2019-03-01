@@ -14,13 +14,8 @@ The goal for this project is to complete option 4 of porting a non-trivial amoun
 Project Milestones:
 
 3/6 - Become familiar with Rust and set up the build environment with Rust
-
 3/9 - Create the code framework (ie: create class outlines) and make sure it compiles
-
 3/13 - Port over code for the Manager, Process, Event and examples used in class
-
 3/16 - Write/port tests for the examples and execute them (may need to research Rust test environments)
-
 3/19 - Port over and test additional classes (Channel, State, etc) as time permits
-
 3/21 - Submit completed project
