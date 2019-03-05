@@ -19,3 +19,7 @@ Project Milestones:
 3/16 - Write/port tests for the examples and execute them (may need to research Rust test environments)
 3/19 - Port over and test additional classes (Channel, State, etc) as time permits
 3/21 - Submit completed project
+
+Building a Docker for use with Rust:
+docker build -t elma .
+docker run -it --rm --name elma elma
