@@ -1,0 +1,5 @@
+[package]
+name = "elma"
+version = "0.1.0"
+authors = ["Zachary Kissler <zkissler@uw.edu>"]
+
