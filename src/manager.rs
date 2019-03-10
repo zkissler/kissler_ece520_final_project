@@ -1,80 +1,47 @@
 //put use statements here
 use std::time::Instant;
+use std::time::Duration;
+use process;
+//use process::process_trait;
+use basic_process;
 
 pub struct Manager {
-/* convert to rust types */
-    vector<Process *> _processes; 
-    map<string, Channel *> _channels; 
-    map<string, vector<std::function<void(Event&)>>> event_handlers; 
-    _start_time : Instant; 
-    _elapsed : Instant; 
+    _processes : Vec<process::Process>,
+    curr : usize,
+    size : usize,
+    capacity : usize,
 }
+
 impl Manager {
-    pub fn manager() {
-    //constructor
+
+    pub fn new() -> Manager {
+        Manager {
+            _processes : Vec::with_capacity(10),
+            curr : 0,
+            size : 0,
+            capacity : 10,
+        }
     }
 
-    pub fn schedule(Process& process, period : Instant) -> Manager& {
-        //need manager reference
-        process._period = period;
-        _processes.push_back(&process);
-        process._manager_ptr = this; 
-        return *this;
+    pub fn schedule(&mut self, mut process : process::Process, ms_time : u64) {
+        //process._period = Duration::from_millis(ms_time);
+        process.update();
+        //basic_process::BasicProcess::update(&process);
+        //we don't know what the top level process type is
+        //self._processes.push(process);
+        self.size = self._processes.len();
+       // process._manager_ptr = this; 
     }
 
-    pub fn add_channel(Channel& channel) -> Manager& {
-        _channels[channel.name()] = &channel;
-        return *this;
-    }
+    pub fn run(&self, run_time : u64) {
+        let dur = Duration::from_millis(run_time);
+        let now = Instant::now();
+        //start function
 
-    pub fn channel(str channel) -> Channel& {
-        if ( _channels.find(name) != _channels.end() ) { 
-            return *(_channels[name]); 
-        } else { 
-            throw Exception("Tried to access an unregistered or non-existant channel."); 
-        } 
-
-    }
-
-    /*pub fn watch(str event_name, std::function<void(Event&)> handler) -> Manager& {
-        event_handlers[event_name].push_back(handler);
-        return *this;
-    }*/
-
-    pub fn emit(const Event& event) -> Manager& {
-
-    }
-
-    pub fn all(std::function< void(Process&) > f) -> Manager& {
-
-    }
-
-    pub fn init() -> Manager& {
-
-    }
-
-    pub fn start() -> Manager& {
-
-    }
-
-    pub fn update() -> Manager& {
-
-    }
-
-
-    pub fn stop() -> Manager& {
-
-    }
-
-    pub fn start_time(&self) -> Instant {
-    return self._start_time;
-    }
-
-    pub fn elapsed(&self) -> Instant {
-    return self._elapsed;
-    }
-
-    pub fn run(runtime : Instant) -> Manager& {
-
+        while (now.elapsed() < dur) {
+            //call update function
+            println!("{:?}", now.elapsed());
+       }
+       //stop function
     }
 }
