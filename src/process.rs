@@ -12,13 +12,13 @@ use std::time::Duration;
 
 //}
 
-//#[derive(Clone)]
+#[derive(Clone)]
 pub struct Process {
     _name: String,
 	_status : status_type,
     pub _period : Duration,          // request time between updates 
-	_previous_update : Instant, // duration from start to update before last 
-    _last_update : Instant,     // duration from start to last update 
+	_previous_update : Duration, // duration from start to update before last 
+    _last_update : Duration,     // duration from start to last update 
     _start_time : Instant,    // time of most recent start 
     _num_updates : usize,                                 // number of times update() has been called 
     _process_type : process_type,
@@ -45,8 +45,8 @@ impl Process {
             _name : name,
             _status : status_type::UNINITIALIZED,
             _period : Duration::from_millis(0),
-            _previous_update : Instant::now(),
-            _last_update : Instant::now(),
+            _previous_update : Duration::from_millis(0),
+            _last_update : Duration::from_millis(0),
             _start_time : Instant::now(),
             _num_updates : 0,
             _process_type : p_type,
@@ -66,12 +66,61 @@ impl Process {
 
         }
     }
+	
+	pub fn init(&self) { 
+         match self._process_type { 
+             process_type::BASIC => {}, 
+             process_type::BASIC2 => {}, 
+  
+         } 
+    } 
+	
+	pub fn start(&self) { 
+         match self._process_type { 
+             process_type::BASIC => {}, 
+             process_type::BASIC2 => {}, 
+  
+         } 
+    } 
+	
+	pub fn stop(&self) { 
+         match self._process_type { 
+             process_type::BASIC => {}, 
+             process_type::BASIC2 => {}, 
+  
+         } 
+    }
+
+    pub fn _init(&mut self) {
+        self._status = status_type::STOPPED;
+        self.init();
+    }
+
+    pub fn _start(&mut self, elapsed : Duration) {
+        self._status = status_type::RUNNING;
+        self._start_time = Instant::now();
+        self._last_update = elapsed;
+        self._num_updates = 0;
+        self.start();
+    }
+
+    pub fn _udpate(&mut self, elapsed : Duration) {
+        self._previous_update = self._last_update;
+        self._last_update = elapsed;
+        self.update();
+        self._num_updates = self._num_updates + 1;
+    }
+
+    pub fn _stop(&mut self) {
+        self._status = status_type::STOPPED;
+        self.stop();
+    }
 
     pub fn name(&self) -> String {
         return self._name.to_string();
     }
 
-    pub fn period(self) -> Duration {
+    pub fn period(&self) -> Duration {
         return self._period;
     }
 
@@ -83,18 +132,11 @@ impl Process {
         return self._start_time;
     }
 
-    pub fn last_update(self) -> Instant {
+    pub fn last_update(&self) -> Duration {
         return self._last_update;
     }
 
-    pub fn previous_update(self) -> Instant {
+    pub fn previous_update(self) -> Duration {
         return self._previous_update;
     }
 }
-
-//impl process_trait for Process {
-  //  fn update(&self) {}
-    //fn init(&self) {}
-    //fn start(&self) {}
-    //fn stop(&self) {}  
-//}
