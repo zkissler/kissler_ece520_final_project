@@ -52,8 +52,7 @@ impl Process {
 
     }
 
-    pub fn watch(&self, event_name : String, handler : &Fn()) {
-        //tells the manager that it needs to watch for the event
+    pub fn watch(&mut self, event_name : String, handler : fn()) {
         self._manager_ptr.watch(event_name, handler);
     }
 

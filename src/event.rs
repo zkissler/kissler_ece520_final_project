@@ -1,4 +1,4 @@
-
+#[derive(Clone)]
 pub struct Event {
     //json value
     _propagate: bool,

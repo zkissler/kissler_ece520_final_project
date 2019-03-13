@@ -2,6 +2,7 @@
 /// \brief description
 use std::time::Instant;
 use std::time::Duration;
+use std::collections::HashMap;
 use process;
 use event;
 //use process::process_trait;
@@ -16,6 +17,7 @@ pub struct Manager {
     capacity : usize,
     _elapsed : Duration,
     _start_time : Instant,
+    _event_handlers : HashMap<String, fn()>,
     //map<string, vector<std::function<void(Event&)>>> event_handlers;
 }
 
@@ -30,14 +32,21 @@ impl Manager {
             capacity : 10,
             _elapsed : Duration::from_millis(0),
             _start_time : Instant::now(),
+            _event_handlers : HashMap::new(),
         }
     }
 
-    pub fn watch(&self, event_name : String, handler : &Fn()) {
-
+    pub fn watch(&mut self, event_name : String, handler : fn()) {
+        self._event_handlers.insert(event_name, handler);
     }
 
     pub fn emit(&self, event : event::Event) {
+        let e = event;
+        if self._event_handlers.contains_key(&e.clone().name()) {
+            if e.propagate() {
+                self._event_handlers[&e.clone().name()]();
+            }
+        }
 
     }
 
