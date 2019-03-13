@@ -1,5 +1,5 @@
 //mod transition;
-//mod event;
+mod event;
 //mod state;
 mod process;
 mod basic_process;
@@ -13,19 +13,19 @@ extern crate serde;
 extern crate serde_json;
 //extern crate serialize;
 
-//use process::process_trait;
-
 fn main() {
 
     let a = String::from("Process A");
-    let mut m = manager::Manager::new();
-    let p = basic_process::BasicProcess::new(&a);
-    let p2 = basic_process2::BasicProcess2::new(&a);
+    let a1 = String::from("Process B");
+    let mut m = manager::Manager::new("Manager 1".to_string());
+    let p = basic_process::BasicProcess::new(&a, m.clone());
+    //m.update();
+    let p2 = basic_process2::BasicProcess2::new(&a1, m.clone());
     m.schedule(p2._process, 1);
-    m.schedule(p._process, 1);
+    m.schedule(p._process, 5);
     //p.update();
 
-    //m.run(5 as u64);
+    m.run(11 as u64);
 
     //basic test case
     //let m = manager::Manager; // Make a manager

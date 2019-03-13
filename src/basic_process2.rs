@@ -1,4 +1,5 @@
 use process;
+use manager;
 
 //#[derive(Clone)]
 pub struct BasicProcess2 {
@@ -7,10 +8,10 @@ pub struct BasicProcess2 {
 }
 
 impl BasicProcess2 {
-    pub fn new(name : &String) -> BasicProcess2{
+    pub fn new(name : &String, m : manager::Manager) -> BasicProcess2{
         BasicProcess2 {
             _name : name.to_string(),
-            _process :  process::Process::new(name.to_string(), process::process_type::BASIC2),
+            _process :  process::Process::new(name.to_string(), process::process_type::BASIC2, m),
         }
     }
 }

@@ -1,6 +1,6 @@
 
 pub struct Event {
-    //can you do json? or use previous method
+    //json value
     _propagate: bool,
     _empty: bool,
     _name: String,
@@ -9,9 +9,20 @@ pub struct Event {
 
 impl Event {
 
-    pub fn Event(&mut self, name : String) {
-        self._name = name;
+    //! Construct a new event
+    //! \param value A json object
+    pub fn new(name: String) -> Event {
+        Event {
+            _propagate : true,
+            _empty : false,
+            _name : name,
+            //init json value 
+        }
     }
+
+ /*   pub fn value(&self) -> json {
+        return self._value;
+    }*/
 
     pub fn empty(&self) -> bool {
         return self._empty;
