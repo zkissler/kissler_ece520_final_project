@@ -15,31 +15,26 @@ extern crate serde_json;
 
 fn main() {
 
+    /* test basic process functionality */
     let a = String::from("Process A");
     let a1 = String::from("Process B");
-    let mut m = manager::Manager::new("Manager 1".to_string());
-    let p = basic_process::BasicProcess::new(&a, m.clone());
-    //m.update();
-    let p2 = basic_process2::BasicProcess2::new(&a1, m.clone());
+    let mut m1 = manager::Manager::new("Manager 1".to_string());
+    let p1 = basic_process::BasicProcess::new(&a, m1.clone());
+    let p2 = basic_process2::BasicProcess2::new(&a1, m1.clone());
     m.schedule(p2._process, 1);
-    m.schedule(p._process, 5);
-    //p.update();
+    m.schedule(p1._process, 5);
 
     m.run(11 as u64);
+    m.stop();
 
-    //basic test case
-    //let m = manager::Manager; // Make a manager
-    //basic_example:: BasicProcess p("A"), q("B"); 
+    //create function
+    //call process watch function
+    let a3 = String::from("Cruise Control");
+    let mut m2 = manager::Manager::new("Manager 2".to_string());
+    let p3 = cruise::Cruise::new(&a, m.clone());
     
-    // Make two processes
-    //let p = basic_process::BasicProcess("A");
-    //let p = basic_process::BasicProcess("B");
+}
 
-    //m.schedule(p, 1_ms); // Schedule the first to run every millisecond
-    //m.schedule(q, 5_ms); // Schedule the second to run every 5 milliseconds
-    //m.init();            // Initialize the manager (which calls init for the processes)
-    //m.run(11_ms);       // Run for 11 milliseconds
-
-
+pub fn change_speed(event : event::Event) {
 
 }

@@ -31,7 +31,8 @@ pub enum status_type {
 #[derive(Clone)]
 pub enum process_type { 
 	BASIC = 0, 
-	BASIC2,  
+	BASIC2,
+    CRUISE,  
 }
 
 
@@ -76,14 +77,21 @@ impl Process {
             process_type::BASIC2 => {
                println!("{} ", self.name().to_string());
             },
+            process_type::CRUISE => {
+                emit(Event("desired speed", 40));
+            },
 
         }
+    }
+    pub fn speed() {
+
     }
 	
 	pub fn init(&self) { 
          match self._process_type { 
              process_type::BASIC => {}, 
              process_type::BASIC2 => {}, 
+             process_type::CRUISE => {}, 
   
          }
          
