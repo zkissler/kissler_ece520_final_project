@@ -27,3 +27,5 @@ I have not figured out a clean way to implement class heirarchy in Rust. In C++ 
 Week 9 Update:
 
 As of 3/13 I am right on track according to my project milestones. I have ported the Process, Manager, and Event classes to Rust. I have successfully tested basic process behavior and am in the process of working through how to test the Event class. I am very concerned that I will not be able to implement events as they are currently done in Elma due to the fact that I am unable to replicate the class inheritance used in the C++ version. I also attemped to use Doxygen with Rust but I have not been able to get Doxygen to recognize tags in my source file. 
+
+I was able to get the scheduler working with two basic processes that simply print their respective process names every time the udpate function is called. The main.rs file has all of the tests in it, making use of manager.rs, process.rs, basic_process.rs and basic_process2.rs.
