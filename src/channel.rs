@@ -5,16 +5,17 @@ use std::collections::VecDeque;
 pub struct Channel {
     _name : String,
     _capacity : usize,
-   // _queue : VecDeque<json>,
-   _queue : VecDeque<f32>, //until I can figure out the json thing
+    _queue : VecDeque<f32>, //until I can figure out json
 }
 
 impl Channel {
 
-    pub fn Channel(&mut self, name : String, capacity : usize) {
-        self._name = name;
-        self._capacity = capacity;
-        self._queue = VecDeque::with_capacity(capacity);
+    pub fn new(&mut self, name : String, capacity : usize) -> Channel {
+        Channel {
+            _name = name,
+            _capacity = capacity,
+            _queue = VecDeque::with_capacity(capacity),
+        }
     }
 
     pub fn send(&mut self, value : f32) {
@@ -24,20 +25,6 @@ impl Channel {
         }
     }
 
-    /*
-    pub fn send(&mut self, value : f32) -> Channel {
-        self._queue.push_front(value);
-        while ( self._queue.len() > self.capacity() ) {
-            self._queue.pop_back();
-        }
-        return *self;
-    }*/
-
- /*   pub fn flush(&mut self) -> Channel {
-        self._queue.clear();
-        return *self;
-    }
-*/
     pub fn flush(&mut self) {
         self._queue.clear();
     }

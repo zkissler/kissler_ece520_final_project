@@ -1,26 +1,35 @@
-/** @file process.rs
- *  @brief This file contains the code for the process interface
- */
+//! Contains the 'Process' structure and implementation
+
 use manager;
 use event;
 use std::time::Instant;
 use std::time::Duration;
 use std::ptr;
 
-
+/// The 'Process' structure contains all the data required to create an Elma process.
 #[derive(Clone)]
 pub struct Process {
-    _name: String,
-	_status : status_type,
-    pub _period : Duration,          // request time between updates 
-	_previous_update : Duration, // duration from start to update before last 
-    _last_update : Duration,     // duration from start to last update 
-    _start_time : Instant,    // time of most recent start 
-    _num_updates : usize,                                 // number of times update() has been called 
-    _process_type : process_type,
+    /// The name of the Process
+    pub _name: String,
+    /// Keeps track fo the 'status_type' enum
+	pub _status : status_type,
+    /// Request time between updates
+    pub _period : Duration,
+    /// Duration from start to update before last
+	pub _previous_update : Duration,
+    /// Duration from start to last update
+    pub _last_update : Duration,
+    /// Time of the most recent start
+    pub _start_time : Instant,
+    /// The number of times the 'update()' method has been called
+    pub _num_updates : usize,
+    /// Keeps track of the 'process_type' enum
+    pub _process_type : process_type,
+    /// Keeps track of the Manager for this Process
     pub _manager_ptr : manager::Manager,
 }
 
+/// Status of the process, as managed by a Manager. Get the status using the status() getter.
 #[derive(Clone)]
 pub enum status_type { 
 	UNINITIALIZED = 0, 
@@ -28,6 +37,7 @@ pub enum status_type {
 	RUNNING, 
 }
 
+/// Keeps track of the type of Process. To be used in the start, stop, init, and update functions
 #[derive(Clone)]
 pub enum process_type { 
 	BASIC = 0, 
@@ -37,7 +47,7 @@ pub enum process_type {
 
 
 impl Process {
-
+    /// Creates a new Process instance
     pub fn new(name: String, p_type : process_type, m : manager::Manager) -> Process {
         Process {
             _name : name,
@@ -53,15 +63,18 @@ impl Process {
 
     }
 
+    /// Tells the Manager to watch for the given Event and respond with the appropriate handler function
     pub fn watch(&mut self, event_name : String, handler : fn()) {
         self._manager_ptr.watch(event_name, handler);
     }
 
+    /// Tells the manager to emit the passed in Event
     pub fn emit(&self, e : event::Event) {
         //tells the manager that it needs to emit a the event
         self._manager_ptr.emit(e);
     }
 
+    /// Calls the 'update()' function for the given Process
     pub fn update_all(&mut self, elapsed : Duration) {
         self._previous_update = self._last_update;
         self._last_update = elapsed;
@@ -69,6 +82,7 @@ impl Process {
         self._num_updates = self._num_updates + 1;
     }
 
+    /// Manager interface for the 'update()' method
     pub fn update(&self) {
         match self._process_type {
             process_type::BASIC => {
@@ -78,15 +92,14 @@ impl Process {
                println!("{} ", self.name().to_string());
             },
             process_type::CRUISE => {
-                emit(Event("desired speed", 40));
+                //let e = event::Event::new()
+                //emit(Event("desired speed", 40));
             },
 
         }
     }
-    pub fn speed() {
-
-    }
 	
+    /// Manager interface for the 'init()' method
 	pub fn init(&self) { 
          match self._process_type { 
              process_type::BASIC => {}, 
@@ -98,27 +111,31 @@ impl Process {
 
     } 
 	
+    /// Manager interface for the 'start()' method
 	pub fn start(&self) { 
          match self._process_type { 
              process_type::BASIC => {}, 
              process_type::BASIC2 => {}, 
-  
+             process_type::CRUISE => {},
          } 
     } 
 	
+    /// Manager interface for the 'stop()' method
 	pub fn stop(&self) { 
          match self._process_type { 
              process_type::BASIC => {}, 
              process_type::BASIC2 => {}, 
-  
+             process_type::CRUISE => {},
          } 
     }
 
+    /// Calls the 'init()' function for the given Process
     pub fn init_all(&mut self) {
         self._status = status_type::STOPPED;
         self.init();
     }
 
+    /// Calls the 'start()' function for the given Process
     pub fn start_all(&mut self, elapsed : Duration) {
         self._status = status_type::RUNNING;
         self._start_time = Instant::now();
@@ -127,35 +144,43 @@ impl Process {
         self.start();
     }
 
+    /// Calls the 'stop()' function for the given Process
     pub fn stop_all(&mut self) {
         self._status = status_type::STOPPED;
         self.stop();
     }
 
+    /// Returns the name of the process
     pub fn name(&self) -> String {
         return self._name.to_string();
     }
 
+    /// Returns the period for the given Process
     pub fn period(&self) -> Duration {
         return self._period;
     }
 
+    /// Returns the number of updates for the given Process
     pub fn num_updates(self) -> usize {
         return self._num_updates;
     }
 
+    /// Returns the time the Process was last started by the Manager
     pub fn start_time(self) -> Instant {
         return self._start_time;
     }
 
+    /// Returns the duration of time between the start time and the most recent time the Manager called the 'update()' method
     pub fn last_update(&self) -> Duration {
         return self._last_update;
     }
 
+    /// Returns the duration of time between the start time and the second most recent time the Manager called the 'update()' method 
     pub fn previous_update(self) -> Duration {
         return self._previous_update;
     }
 
+    /// Returns the time since the last update, in milliseconds
     pub fn milli_time(&self) -> Duration {
         return self._last_update;
     }
