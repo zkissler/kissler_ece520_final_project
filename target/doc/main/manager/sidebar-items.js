@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Manager","The 'Manager' structure contains all the data required to create an Elma process."]]});

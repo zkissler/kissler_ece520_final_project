@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Event","The 'Event' structure contains all the data required to create an Event for an Elma process"]]});

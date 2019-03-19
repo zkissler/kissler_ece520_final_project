@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["main","The main function implements all the tests for Elma"]],"mod":[["basic_process",""],["basic_process2",""],["event","Contains the 'Event' structure and implementation"],["manager","Contains the 'Manager' structure and implementation"],["process","Contains the 'Process' structure and implementation"]]});

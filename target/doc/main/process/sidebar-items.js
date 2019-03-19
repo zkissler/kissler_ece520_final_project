@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["process_type","Keeps track of the type of Process. To be used in the start, stop, init, and update functions"],["status_type","Status of the process, as managed by a Manager. Get the status using the status() getter."]],"struct":[["Process","The 'Process' structure contains all the data required to create an Elma process."]]});
