@@ -57,7 +57,6 @@ impl Manager {
 
     }
 
-    //priority missing
     /// Adds the passed in Process to the scheduler for this Manager
 	pub fn schedule(&mut self, mut process : process::Process, ms_time : u64) {
 		process._period = Duration::from_millis(ms_time);
@@ -82,7 +81,6 @@ impl Manager {
     pub fn update(&mut self) {
 		//_client.process_responses() -- if we get this far
 		for _p in &mut self._processes {
-           // println!("{:?}  {:?}  {:?}", self._elapsed, _p.last_update(), _p.period());
 			if self._elapsed > _p.last_update() + _p.period() {
 				(*_p).update_all(self._elapsed);  
 			}
@@ -91,7 +89,6 @@ impl Manager {
 	
     /// Calls the 'init()' function for all the Processes
 	pub fn init(&mut self) {
-        println!("in manager init");
 		for _p in &mut self._processes {
 			(*_p).init_all();
 		}

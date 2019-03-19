@@ -5,8 +5,9 @@ pub mod manager;
 //mod channel;
 pub mod basic_process;
 pub mod basic_process2;
-use std::rc::Rc;
-use std::cell::RefCell;
+pub mod state_machine;
+pub mod state;
+pub mod transition;
 
 /// The main function implements all the tests for Elma
 pub fn main() {
@@ -21,16 +22,39 @@ pub fn main() {
     //might need to add all the events here for a particular process
     let e1 = event::Event::new("Hello".to_string());
     let e2 = event::Event::new("This is a basic event".to_string());
+
+    /* calls the process watch function with the associated function */
     let f: fn() = print_hello;
     p1._process.watch("Hello".to_string(), f);
-    
+
+    let f1: fn() = print_basic;
+    p2._process.watch("This is a basic event".to_string(), f1);
+
+    /* emits the events */
     p1._process.emit(e1);
-    p1._process.emit(e2);
+    p2._process.emit(e2);
+
     m1.schedule(p1._process, 1);
     m1.schedule(p2._process, 5);
     m1.init();
 
     m1.run(11 as u64);
+
+
+    /* Example of State Machine Functionality */
+    let state1 = state::State::new("State 1".to_string());
+    let state2 = state::State::new("State 2".to_string());
+
+    let mut m2 = manager::Manager::new("Manager 1".to_string());
+    let mut s1 = state_machine::StateMachine::new(state1.clone(), state2.clone());
+
+    s1.set_initial(state1.clone());
+    let e5 = s1.current();
+    println!("Current State: {}", e5.name());
+    s1.add_transition("switch".to_string(), state1, state2);
+    let e3 = event::Event::new("switch".to_string());
+    m2.start();
+    m2.emit(e3);
 
 
     /* This block of code implements the "virtual" functions using traits for two 
@@ -64,4 +88,7 @@ pub fn main() {
 
 pub fn print_hello() {
     println!("Hello!");
+}
+pub fn print_basic() {
+    println!("Here is my basic event");
 }

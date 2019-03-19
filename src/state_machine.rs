@@ -4,6 +4,7 @@ use state;
 use transition;
 
 /// The 'State Machine' structure contains all the data required to create an Elma State Machine
+#[derive(Clone)]
 pub struct StateMachine {
     /// Stores all the Transitions for this State Machine
     _transitions : Vec<transition::Transition>,
@@ -16,16 +17,16 @@ pub struct StateMachine {
 
 impl StateMachine {
     /// Creates a new State Machine instance
-    pub fn new(&mut self, _event_name : String, from : state::State, to : state::State) -> StateMachine {
+    pub fn new(from : state::State, to : state::State) -> StateMachine {
         StateMachine {
             _transitions : Vec::with_capacity(15),
-            _initial : from,
-            _current : to,
+            _initial : from.clone(),
+            _current : from,
         }
     }
 
-    pub fn current(&self) -> State {
-        return self._current;
+    pub fn current(&self) -> state::State {
+        return self._current.clone();
     }
 
     pub fn set_initial(&mut self, initial : state::State) {

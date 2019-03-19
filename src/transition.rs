@@ -3,6 +3,7 @@
 use state;
 
 /// The 'Transition' structure contains all the data required to provide a transition between States in a State Machine
+#[derive(Clone)]
 pub struct Transition {
     /// The previous State
     _from : state::State,
@@ -14,11 +15,11 @@ pub struct Transition {
 
 impl Transition {
     /// Creates a new Transition instance
-    pub fn new(&mut self, name : String, _from : state::State, _to : state::State) -> Transition {
+    pub fn new(name : String, from : state::State, to : state::State) -> Transition {
         Transition {
-            _name = name,
-            _from = _from,
-            _to = _to,
+            _from : from,
+            _to : to,
+            _name : name,
         }
     }
 

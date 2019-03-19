@@ -65,7 +65,6 @@ impl Process {
 
     /// Tells the Manager to watch for the given Event and respond with the appropriate handler function
     pub fn watch(&mut self, event_name : String, handler : fn()) {
-            println!("in process watch");
         self._manager_ptr.watch(event_name, handler);
     }
 
@@ -102,7 +101,6 @@ impl Process {
 	
     /// Manager interface for the 'init()' method
 	pub fn init(&mut self) { 
-        println!("in process init");
          match self._process_type { 
              process_type::BASIC => {
                 /* This doesn't work

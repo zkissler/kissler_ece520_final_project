@@ -3,6 +3,7 @@
 use event;
 
 /// The 'State' structure contains all the data required to create a State for a State Machine
+#[derive(Clone)]
 pub struct State {
     /// The name of the State
     _name : String,
@@ -15,10 +16,12 @@ pub struct State {
 
 impl State {
     /// Creates a new State instance
-    pub fn State(&mut self, name:String) {
-        self._name = name;
-        self._id = self._id_counter;
-        //self._state_machine_ptr = NULL;
+    pub fn new(name:String) -> State {
+        State {
+            _name : name,
+            _id : 0,
+            _id_counter : 0,
+        }
     }
 
     /// Emits the passed in Event
