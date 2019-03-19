@@ -1,8 +1,8 @@
 FROM rust:1.31
 
-WORKDIR /src/elma
+WORKDIR /src/main
 COPY . .
 
 RUN cargo install --path .
 
-CMD ["elma"]
+CMD ["main"]

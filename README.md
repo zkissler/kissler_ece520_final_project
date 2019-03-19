@@ -5,11 +5,26 @@ Port a non-trivial amount of Elma to Rust (e.g. Manager, Process, Event and some
 Project Goals:
 The goal for this project was to complete option 4 of porting a non-trivial amount of Elma to Rust. I chose this project because I was interested in learning another language as well as understanding how languages have changed/improved since Rust is relatively new compared to C/C++, etc. 
 
-Installation, Build, & Run - NEED TO FIX
+Installation, Build, & Run
 
 Building a Docker for use with Rust:
-docker build -t elma .
-docker run -it --rm --name elma elma
+docker build -t main .
+
+Which resulted in:
+Successfully built 4ad280b6966d
+Successfully tagged main:latest
+
+Run the docker:
+docker run -it --rm --name elma main
+
+Created a public repository on Dockerhub. https://hub.docker.com/r/zkissler/kissler_ece520_final_project
+
+docker tag 4ad280b6966d zkissler/kissler_ece520_final_project
+docker push zkissler/kissler_ece520_final_project
+
+
+Run this in your working directory and it will compile and run your code. I got help from the following source:
+https://hub.docker.com/_/rust
 
 Build a "crate" using "cargo build"
 Run with "cargo run"
