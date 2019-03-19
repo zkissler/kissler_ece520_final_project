@@ -91,6 +91,7 @@ impl Manager {
 	
     /// Calls the 'init()' function for all the Processes
 	pub fn init(&mut self) {
+        println!("in manager init");
 		for _p in &mut self._processes {
 			(*_p).init_all();
 		}

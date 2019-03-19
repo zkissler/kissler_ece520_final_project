@@ -65,6 +65,7 @@ impl Process {
 
     /// Tells the Manager to watch for the given Event and respond with the appropriate handler function
     pub fn watch(&mut self, event_name : String, handler : fn()) {
+            println!("in process watch");
         self._manager_ptr.watch(event_name, handler);
     }
 
@@ -100,9 +101,15 @@ impl Process {
     }
 	
     /// Manager interface for the 'init()' method
-	pub fn init(&self) { 
+	pub fn init(&mut self) { 
+        println!("in process init");
          match self._process_type { 
-             process_type::BASIC => {}, 
+             process_type::BASIC => {
+                /* This doesn't work
+                 let f: fn() = print_basic;
+                 self.watch("This is a basic event".to_string(), f);
+                 */
+             }, 
              process_type::BASIC2 => {}, 
              process_type::CRUISE => {}, 
   
@@ -184,4 +191,7 @@ impl Process {
     pub fn milli_time(&self) -> Duration {
         return self._last_update;
     }
+}
+pub fn print_basic() {
+    println!("Here is my basic event");
 }

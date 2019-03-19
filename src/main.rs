@@ -19,10 +19,16 @@ pub fn main() {
     let mut p2 = basic_process2::BasicProcess2::new(&b, m1.clone());
 
     //might need to add all the events here for a particular process
-    //p1._process.watch();
-
+    let e1 = event::Event::new("Hello".to_string());
+    let e2 = event::Event::new("This is a basic event".to_string());
+    let f: fn() = print_hello;
+    p1._process.watch("Hello".to_string(), f);
+    
+    p1._process.emit(e1);
+    p1._process.emit(e2);
     m1.schedule(p1._process, 1);
     m1.schedule(p2._process, 5);
+    m1.init();
 
     m1.run(11 as u64);
 
@@ -54,5 +60,8 @@ pub fn main() {
     m1.run(11 as u64);
     */
 
+}
 
+pub fn print_hello() {
+    println!("Hello!");
 }
