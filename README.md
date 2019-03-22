@@ -67,7 +67,7 @@ I also struggled to understand how to pass references and pointers much like wha
 Due to the failures I experienced I did my best to implement extra Elma classes to make up for this. Most of these classes ran on the foundation of class inheritance so once again I had trouble actually testing these implementations in the same way that the standard Elma does. I am confident that with more time and a better understanding of how to implement inheritance I would have been able to successfully port all of Elma to Rust.
 
 Future Recommendations:
-If this option continues to be used in future classes I would provide some sort of primer on implementing inheritance in Rust. I spent 20+ hours researching inheritance alone (about 50 hours overall)and despite repeated attempts I recieved no help from the professor on this topic. Ultimatley it does not make sense to have students to port Elma to Rust without more guidance.
+If this option continues to be used in future classes I would provide some sort of primer on implementing inheritance in Rust. I spent 20+ hours researching inheritance alone (about 50 hours overall)and despite repeated attempts I recieved no help on this topic. Ultimatley it does not make sense to have students to port Elma to Rust without more guidance.
 
 Results when run:
 
